@@ -9,10 +9,11 @@ use Illuminate\Support\Facades\DB;
 class CustomerController extends Controller
 {
     //web route
-    function index(){
+    function index()
+    {
         $customers = DB::table('customers')->get();
         return view('customer.index')
-        ->with('customers', $customers);
+            ->with('customers', $customers);
         //->with(variable, value)
 
 
@@ -30,35 +31,40 @@ class CustomerController extends Controller
         //                         echo $value->id . ' ' . $value->name . ' ' . $value->age . ' ' . $value->gender . ' ' . $value->address .'</br>';
         //                     }
 
-            //    foreach ($customer1 as $key => $value) {
-            //         echo $value->id . ' ' . $value->name . ' ' . $value->age . ' ' . $value->gender . ' ' . $value->address .'</br>';
-            //     }
+        //    foreach ($customer1 as $key => $value) {
+        //         echo $value->id . ' ' . $value->name . ' ' . $value->age . ' ' . $value->gender . ' ' . $value->address .'</br>';
+        //     }
     }
 
-    function display($id){
+    function display($id)
+    {
         $customers = DB::table('customers')
-                        ->where('id', $id)
-                        ->get();
+            ->where('id', $id)
+            ->get();
         return view('customer.display')
-                        ->with('customers', $customers);
+            ->with('customers', $customers)
+            ->with('id', $id);
     }
 
-    function edit($id){
+    function edit($id)
+    {
         $customers = DB::table('customers')
-                        ->where('id', $id)
-                        ->get();
+            ->where('id', $id)
+            ->get();
         return view('customer.edit')
-                        ->with('customers', $customers)
-                        ->with('id', $id);
+            ->with('customers', $customers)
+            ->with('id', $id);
     }
 
-    function create(){
+    function create()
+    {
         return view('customer.create');
     }
 
     //API route
 
-    function add(Request $request){
+    function add(Request $request)
+    {
         //input('name') dapat dari create.blade.php <input name="name">
         $name = $request->input('name');
         $age = $request->input('age');
@@ -73,22 +79,25 @@ class CustomerController extends Controller
         ]);
     }
 
-    function update($id, Request $request){
+    function update($id, Request $request)
+    {
         $name = $request->input('name');
         $age = $request->input('age');
         $gender = $request->input('gender');
         $address = $request->input('address');
 
         DB::table('customers')
-              ->where('id', $id)
-              ->update(['name' => $name,
-                        'age' => $age,
-                        'gender' => $gender,
-                        'address' => $address
-                    ]);
+            ->where('id', $id)
+            ->update([
+                'name' => $name,
+                'age' => $age,
+                'gender' => $gender,
+                'address' => $address
+            ]);
     }
 
-    function delete($id){
+    function delete($id)
+    {
         DB::table('customers')
             ->where('id', '=', $id)
             ->delete();

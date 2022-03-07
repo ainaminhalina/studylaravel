@@ -18,7 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 // Route::get('user', function () {
 //     echo "Hello";
 // });
@@ -52,9 +51,10 @@ Route::get('/', function () {
 
 // Route::get('/displayuser', [UserController::class, 'displayuser']);
 
+Route::redirect('/', '/customers');
 Route::prefix('customers')->group(function () {
-        Route::get('/', [CustomerController::class, 'index']);
-        Route::get('display/{id}', [CustomerController::class, 'display']);
-        Route::get('create', [CustomerController::class, 'create']);
-        Route::get('edit/{id}', [CustomerController::class, 'edit']);
-    });
+    Route::get('/', [CustomerController::class, 'index']);
+    Route::get('display/{id}', [CustomerController::class, 'display']);
+    Route::get('create', [CustomerController::class, 'create']);
+    Route::get('edit/{id}', [CustomerController::class, 'edit']);
+});
